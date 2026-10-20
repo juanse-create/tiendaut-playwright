@@ -29,6 +29,8 @@ jobs:
         run: npm ci
 
       - name: Ejecutar pruebas
+        env:
+          HOME: /root
         run: npx playwright test
 
       - name: Guardar reporte
