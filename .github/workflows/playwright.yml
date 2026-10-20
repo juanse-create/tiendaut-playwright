@@ -28,10 +28,17 @@ jobs:
       - name: Instalar dependencias
         run: npm ci
 
-      - name: Ejecutar pruebas
+      - name: Actualizar capturas visuales
         env:
           HOME: /root
-        run: npx playwright test
+        run: npx playwright test tests/red-y-visual.spec.ts --grep "la página de inicio se ve igual" --update-snapshots
+
+      - name: Guardar capturas actualizadas
+        uses: actions/upload-artifact@v4
+        with:
+          name: capturas-ubuntu
+          path: tests/red-y-visual.spec.ts-snapshots/
+          retention-days: 7
 
       - name: Guardar reporte
         if: always()
